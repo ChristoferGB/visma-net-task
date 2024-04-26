@@ -9,18 +9,18 @@ namespace API.Entities
         public string LastName { get; set; }
         public DateTime Birthday { get; set; }
         public DateTime EmploymentDate { get; set; }
-        public Employee? Boss { get; set; }
+        //public Employee? Boss { get; set; }
         public string HomeAddress { get; set; }
         public float Salary { get; set; }
         public RoleEnum Role { get; set; }
 
-        public Employee(string firstName, string lastName, DateTime birthday, DateTime employmentDate, Employee? boss, string homeAddress, float salary, RoleEnum role)
+        public Employee(string firstName, string lastName, DateTime birthday, DateTime employmentDate, string homeAddress, float salary, RoleEnum role)
         {
             FirstName = firstName;
             LastName = lastName;
             Birthday = birthday;
             EmploymentDate = employmentDate;
-            Boss = boss;
+            //Boss = boss;
             HomeAddress = homeAddress;
             Salary = salary;
             Role = role;
@@ -72,10 +72,10 @@ namespace API.Entities
             EmploymentDate = employmentDate;
         }
 
-        public void SetBoss(Employee boss)
-        {
-            Boss = boss;
-        }
+        // public void SetBoss(Employee boss)
+        // {
+        //     Boss = boss;
+        // }
 
         public void SetHomeAddres(string homeAddres)
         {
