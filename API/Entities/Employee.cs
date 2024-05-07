@@ -15,7 +15,7 @@ namespace API.Entities
         public RoleEnum Role { get; set; }
 
         public Employee? Boss { get; set; }
-        public ICollection<Employee> Employees {get; } = new List<Employee>();
+        public ICollection<Employee> Employees { get; } = new List<Employee>();
 
         public Employee(string firstName, string lastName, DateOnly birthday, DateTime employmentDate, int? bossId, string homeAddress, float salary, RoleEnum role)
         {
@@ -60,8 +60,8 @@ namespace API.Entities
         public void SetBirthday(DateOnly birthday)
         {
             int age = CalculateAge();
-            
-            if(age < 18 || age > 70)
+
+            if (age < 18 || age > 70)
                 throw new BirthdayOutOfRangeException("Employee must be between 18 and 70 years old");
 
             Birthday = birthday;

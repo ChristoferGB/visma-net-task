@@ -1,4 +1,5 @@
 using API.DTOs.Requests;
+using API.DTOs.Responses;
 using API.Entities;
 
 namespace API.Services.Employees
@@ -10,5 +11,6 @@ namespace API.Services.Employees
         Task<Employee> PostEmployee(EmployeeRequest request);
         Task<Employee> UpdateEmployee(int id, EmployeeRequest request);
         Task<bool> DeleteEmployee(int id);
+        RoleResponse GetEmployeeForRole(int roleId);
     }
 }

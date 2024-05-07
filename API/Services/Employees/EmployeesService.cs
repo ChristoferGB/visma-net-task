@@ -1,5 +1,6 @@
 using API.Data;
 using API.DTOs.Requests;
+using API.DTOs.Responses;
 using API.Entities;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
@@ -63,6 +64,21 @@ namespace API.Services.Employees
             await context.SaveChangesAsync();
 
             return true;
+        }
+
+        public RoleResponse GetEmployeeForRole(int roleId)
+        {
+            var employeeByRole = context.Employees.Where(x => ((int)x.Role) == roleId);
+
+            var count = employeeByRole.Count();
+            var averageSalary = employeeByRole.Average(x => x.Salary);
+
+            return new RoleResponse {
+                Role = roleId,
+                Description = Enum.GetName(typeof(RoleEnum), roleId),
+                AverageSalary = averageSalary,
+                Count = count
+            };
         }
     }
 }

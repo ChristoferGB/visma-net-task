@@ -1,5 +1,6 @@
 using API.Data;
 using API.DTOs.Requests;
+using API.DTOs.Responses;
 using API.Entities;
 using API.Services.Employees;
 using Microsoft.AspNetCore.Mvc;
@@ -54,6 +55,14 @@ namespace API.Controllers
         public async Task<ActionResult> DeleteEmployee(int id)
         {
             var response = await employeesService.DeleteEmployee(id);
+
+            return Ok(response);
+        }
+
+        [HttpGet("role/{roleId}")]
+        public ActionResult<RoleResponse> GetEmployeeForRole(int roleId) 
+        {
+            var response = employeesService.GetEmployeeForRole(roleId);
 
             return Ok(response);
         }
