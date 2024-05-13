@@ -51,6 +51,14 @@ namespace API.Controllers
             return Ok(response);
         }
 
+        [HttpPut("{id}/salary")]
+        public async Task<ActionResult<Employee>> UpdateEmployeeSalary(int id, [FromBody] EmployeeSalaryRequest request)
+        {
+            var response = await employeesService.UpdateEmployeeSalary(id, request);
+
+            return Ok(response);
+        }
+
         [HttpDelete("{id}")]
         public async Task<ActionResult> DeleteEmployee(int id)
         {
@@ -63,6 +71,14 @@ namespace API.Controllers
         public ActionResult<RoleResponse> GetEmployeeForRole(int roleId) 
         {
             var response = employeesService.GetEmployeeForRole(roleId);
+
+            return Ok(response);
+        }
+
+        [HttpGet("boss/{bossId}")]
+        public async Task<ActionResult<IEnumerable<Employee>>> GetEmployeeByBoss(int bossId)
+        {
+            var response = await employeesService.GetEmployeeByBoss(bossId);
 
             return Ok(response);
         }

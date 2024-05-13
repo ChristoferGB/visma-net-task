@@ -80,5 +80,26 @@ namespace API.Services.Employees
                 Count = count
             };
         }
+
+        public async Task<IEnumerable<Employee>> GetEmployeeByBoss(int bossId)
+        {
+            return await context.Employees.Where(x => x.BossId == bossId).ToListAsync();
+        }
+
+        public async Task<Employee> UpdateEmployeeSalary(int id, EmployeeSalaryRequest request)
+        {
+            var employee = context.Employees.Find(id);
+            var updatedEmployee = employee;
+
+            if (employee == null)
+                return null;
+
+            updatedEmployee.SetSalary(request.Salary);
+
+            context.Entry(employee).CurrentValues.SetValues(updatedEmployee);
+            await context.SaveChangesAsync();
+
+            return updatedEmployee;
+        }
     }
 }

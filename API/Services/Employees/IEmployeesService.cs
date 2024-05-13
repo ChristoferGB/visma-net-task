@@ -10,7 +10,9 @@ namespace API.Services.Employees
         Task<Employee> GetEmployee(int id);
         Task<Employee> PostEmployee(EmployeeRequest request);
         Task<Employee> UpdateEmployee(int id, EmployeeRequest request);
+        Task<Employee> UpdateEmployeeSalary(int id, EmployeeSalaryRequest request);
         Task<bool> DeleteEmployee(int id);
         RoleResponse GetEmployeeForRole(int roleId);
+        Task<IEnumerable<Employee>> GetEmployeeByBoss(int bossId);
     }
 }
