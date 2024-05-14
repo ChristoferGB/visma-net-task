@@ -2,10 +2,10 @@
 {
     public enum RoleEnum
     {
-        Worker,
-        Analyst,
-        Manager,
+        CEO = 1,
         Director,
-        CEO
+        Manager,
+        Analyst,
+        Worker
     }
 }

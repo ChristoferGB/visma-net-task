@@ -54,7 +54,7 @@ namespace API.Data.Migrations
 
                     b.HasIndex("BossId");
 
-                    b.ToTable("Employees");
+                    b.ToTable("Employees", (string)null);
                 });
 
             modelBuilder.Entity("API.Entities.Employee", b =>
