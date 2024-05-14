@@ -1,5 +1,6 @@
 using System.Reflection;
 using API.Data;
+using API.Services.Employees;
 using API.Services.Profiles;
 using Microsoft.EntityFrameworkCore;
 
@@ -17,6 +18,8 @@ builder.Services.AddDbContext<DataContext>(opt => {
 });
 
 builder.Services.AddAutoMapper(typeof(EmployeeProfile).GetTypeInfo().Assembly);
+
+builder.Services.AddScoped<IEmployeesService, EmployeesService>();
 
 var app = builder.Build();
 
