@@ -20,7 +20,11 @@ namespace API.Services.Employees
 
         public async Task<Employee> GetEmployee(int id)
         {
-            return await context.Employees.FindAsync(id);
+            return await context.Employees
+                .Include(x => x.Boss)
+                .Include(x => x.Employees) //TO-DO: criar DTO para evitar retornar campos vazios de employee
+                .Where(x => x.Id == id)
+                .FirstOrDefaultAsync();
         }
 
         public async Task<IEnumerable<Employee>> GetEmployees()
@@ -30,12 +34,20 @@ namespace API.Services.Employees
 
         public async Task<Employee> PostEmployee(EmployeeRequest request)
         {
-            var employee = mapper.Map<Employee>(request);
-
-            context.Employees.Add(employee);
-            await context.SaveChangesAsync();
-
-            return employee;
+            try
+            {
+                var employee = mapper.Map<Employee>(request);
+    
+                context.Employees.Add(employee);
+                await context.SaveChangesAsync();
+    
+                return employee;
+            }
+            catch (Exception ex)
+            {
+                Console.Write(ex);
+                throw;
+            }
         }
 
         public async Task<Employee> UpdateEmployee(int id, EmployeeRequest request)
@@ -46,6 +58,7 @@ namespace API.Services.Employees
                 return null;
 
             var updatedEmployee = mapper.Map<Employee>(request);
+            updatedEmployee.Id = employee.Id;
 
             context.Entry(employee).CurrentValues.SetValues(updatedEmployee);
             await context.SaveChangesAsync();

@@ -1,10 +1,8 @@
-using API.Data;
 using API.DTOs.Requests;
 using API.DTOs.Responses;
 using API.Entities;
 using API.Services.Employees;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace API.Controllers
 {

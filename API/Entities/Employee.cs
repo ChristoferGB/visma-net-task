@@ -9,11 +9,7 @@ namespace API.Entities
         public int Id { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
-        [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
         public DateOnly Birthday { get; set; }
-        [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
         public DateOnly EmploymentDate { get; set; }
         public int? BossId { get; set; }
         public string HomeAddress { get; set; }
@@ -23,12 +19,14 @@ namespace API.Entities
         public Employee? Boss { get; set; }
         public ICollection<Employee> Employees { get; } = new List<Employee>();
 
-        public Employee(string firstName, string lastName, DateOnly birthday, DateOnly employmentDate, int? bossId, string homeAddress, float salary, RoleEnum role)
+        protected Employee() { }
+
+        public Employee(string firstName, string lastName, DateTime birthday, DateTime employmentDate, int? bossId, string homeAddress, float salary, RoleEnum role)
         {
             FirstName = firstName;
             LastName = lastName;
-            Birthday = DateOnly.ParseExact(birthday.ToString(), "dd/MM/yyyy", CultureInfo.InvariantCulture);
-            EmploymentDate = DateOnly.ParseExact(employmentDate.ToString(), "dd/MM/yyyy", CultureInfo.InvariantCulture);
+            Birthday = DateOnly.FromDateTime(birthday);
+            EmploymentDate = DateOnly.FromDateTime(employmentDate);
             BossId = bossId;
             HomeAddress = homeAddress;
             Salary = salary;
@@ -70,7 +68,7 @@ namespace API.Entities
             if (age < 18 || age > 70)
                 throw new BirthdayOutOfRangeException("Employee must be between 18 and 70 years old");
 
-            Birthday = DateOnly.ParseExact(birthday.ToString(), "dd/MM/yyyy", CultureInfo.InvariantCulture);;
+            Birthday = DateOnly.ParseExact(birthday.ToString(), "dd/MM/yyyy", CultureInfo.InvariantCulture);
         }
 
         public void SetEmploymentDate(DateOnly employmentDate)
@@ -81,7 +79,7 @@ namespace API.Entities
             if (employmentDate < new DateOnly(2000, 01, 01))
                 throw new EmploymentDateOutOfRangeException("Employment date cannot be earlier than 2000-01-01");
 
-            EmploymentDate = DateOnly.ParseExact(employmentDate.ToString(), "dd/MM/yyyy", CultureInfo.InvariantCulture);;
+            EmploymentDate = DateOnly.ParseExact(employmentDate.ToString(), "dd/MM/yyyy", CultureInfo.InvariantCulture);
         }
 
         public void SetBoss(int bossId)
